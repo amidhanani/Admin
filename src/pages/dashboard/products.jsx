@@ -5,7 +5,7 @@ import React from "react";
 export function Products() {
   
   return (
-    <>
+    <> 
     <div>
       <div className="md:grid md:grid-cols-3 md:gap-6">
        

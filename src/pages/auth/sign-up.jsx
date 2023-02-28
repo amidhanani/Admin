@@ -9,8 +9,48 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import { useState } from "react";
 
-export function SignUp() {
+export function SignUp() { 
+  
+  
+const[name,setname]=useState('')
+const[email,setemail]=useState('')
+const[password,setpassword]=useState('')
+// this.submit=this.submit.bind(this);
+
+async function submit(e){
+  e.preventdefault();
+  const{name,email,password}= this.state;
+  console.log(name,email,password);
+  fetch("http://localhost:8000/register",{
+    method:"POST",
+    crossDomain:true,
+    headers:{
+      "content-type":"application/json",
+      accept:"application/json",
+      "access-control-allow-origin":"*",
+    },
+    body:JSON.stringify({
+      name,
+      email,
+      password
+    }),
+  }).then((res)=>res.json())
+  .then((data)=>{
+    console.log(data,"userlogin");
+  })
+  try{
+     
+    await axios.post("http://localhost:8000/",{
+      name,email,password
+    })
+  }
+  catch(e){
+    console.log(e);
+  }
+}
+  
   return (
     <>
       <img
@@ -30,15 +70,15 @@ export function SignUp() {
             </Typography>
           </CardHeader>
           <CardBody className="flex flex-col gap-4">
-            <Input label="Name" size="lg" />
-            <Input type="email" label="Email" size="lg" />
-            <Input type="password" label="Password" size="lg" />
+            <Input label="Name" onChange={(e)=>{setname(e.target.value)}} placeholder="name" size="lg" />
+            <Input type="email" onChange={(e)=>{setemail(e.target.value)}} placeholder="email" label="Email" size="lg" />
+            <Input type="password" onChange={(e)=>{setpassword(e.target.value)}} placeholder="password" label="Password" size="lg" />
             <div className="-ml-2.5">
               <Checkbox label="I agree the Terms and Conditions" />
             </div>
           </CardBody>
           <CardFooter className="pt-0">
-            <Button variant="gradient" fullWidth>
+            <Button variant="gradient" fullWidth onClick={submit}>
               Sign Up
             </Button>
             <Typography variant="small" className="mt-6 flex justify-center">
