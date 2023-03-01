@@ -6,9 +6,10 @@ import {
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Tables, Notifications, Products } from "@/pages/dashboard";
+import { Home, Tables, Notifications } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 import Dinkal from "./pages/dashboard/dinkal";
+import Product from "./pages/dashboard/products";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -38,7 +39,7 @@ export const routes = [
       },
       {
         icon: <BellIcon {...icon} />,
-        name: "Invoice",
+        name: "Register Record",
         path: "/dinkal",
         element: <Dinkal />,
       },
@@ -46,7 +47,7 @@ export const routes = [
         icon: <BellIcon {...icon} />,
         name: "Add Products",
         path: "/products",
-        element: <Products />,
+        element: <Product />,
       },
       {
         icon: <BellIcon {...icon} />,
