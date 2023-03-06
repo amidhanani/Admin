@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from "react-router-dom";
 import {
   Card,
@@ -5,54 +6,91 @@ import {
   CardBody,
   CardFooter,
   Input,
-  Checkbox,
   Button,
   Typography,
 } from "@material-tailwind/react";
 import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export function SignUp() { 
-  
-  
-const[name,setname]=useState('')
-const[email,setemail]=useState('')
-const[password,setpassword]=useState('')
-// this.submit=this.submit.bind(this);
+const SignUp = () => {
 
-async function submit(e){
-  e.preventdefault();
-  const{name,email,password}= this.state;
-  console.log(name,email,password);
-  fetch("http://localhost:8000/register",{
-    method:"POST",
-    crossDomain:true,
-    headers:{
-      "content-type":"application/json",
-      accept:"application/json",
-      "access-control-allow-origin":"*",
-    },
-    body:JSON.stringify({
-      name,
-      email,
-      password
-    }),
-  }).then((res)=>res.json())
-  .then((data)=>{
-    console.log(data,"userlogin");
-  })
-  try{
-     
-    await axios.post("http://localhost:8000/",{
-      name,email,password
+  const [inpval, setInpval] = useState({
+    name: "",
+    email: "",
+    password: ""
+   
+});
+
+
+const setVal = (e) => {
+    // console.log(e.target.value);
+    const { name, value } = e.target;
+
+    setInpval(() => {
+        return {
+            ...inpval,
+            [name]: value
+        }
     })
-  }
-  catch(e){
-    console.log(e);
-  }
+};
+
+const AdminData = async (e) => {
+    e.preventDefault();
+
+    const { name, email, password } = inpval;
+
+    if (name === "") {
+        toast.warning("fname is required!", {
+            position: "top-center"
+        });
+    } else if (email === "") {
+        toast.error("email is required!", {
+            position: "top-center"
+        });
+    } else if (!email.includes("@")) {
+        toast.warning("includes @ in your email!", {
+            position: "top-center"
+        });
+    } else if (password === "") {
+        toast.error("password is required!", {
+            position: "top-center"
+        });
+    } else if (password.length < 6) {
+        toast.error("password must be 6 char!", {
+            position: "top-center"
+        });
+    } else {
+        // console.log("user registration succes50y done");
+
+
+        const data = await fetch("http://localhost:8009/admindata", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name, email, password
+            })
+        });
+
+        
+        const res = await data.json();
+        //console.log(res.status);
+
+        if (res.status === 201) {
+            // toast.success("Registration Success50y done !", {
+            //     position: "top-center"
+            // });
+             alert("user registration done");
+            setInpval({ ...inpval, name: "", email: "", password: "" });
+        }
+    }
+    
 }
-  
+
   return (
-    <>
+     <>
       <img
         src="https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80"
         className="absolute inset-0 z-0 h-full w-full object-cover"
@@ -70,15 +108,13 @@ async function submit(e){
             </Typography>
           </CardHeader>
           <CardBody className="flex flex-col gap-4">
-            <Input label="Name" onChange={(e)=>{setname(e.target.value)}} placeholder="name" size="lg" />
-            <Input type="email" onChange={(e)=>{setemail(e.target.value)}} placeholder="email" label="Email" size="lg" />
-            <Input type="password" onChange={(e)=>{setpassword(e.target.value)}} placeholder="password" label="Password" size="lg" />
-            <div className="-ml-2.5">
-              <Checkbox label="I agree the Terms and Conditions" />
-            </div>
+            <Input label="Name"  onChange={setVal} value={inpval.name} name="name"  size="lg" />
+            <Input type="email"  onChange={setVal} value={inpval.email} name="email"  label="Email" size="lg" />
+            <Input type="password" onChange={setVal} value={inpval.password} name="password"   label="Password" size="lg" />
+            
           </CardBody>
           <CardFooter className="pt-0">
-            <Button variant="gradient" fullWidth onClick={submit}>
+            <Button variant="gradient" fullWidth  onClick={AdminData}>
               Sign Up
             </Button>
             <Typography variant="small" className="mt-6 flex justify-center">
@@ -98,7 +134,11 @@ async function submit(e){
         </Card>
       </div>
     </>
-  );
+  )
 }
 
-export default SignUp;
+export default SignUp
+
+
+
+

@@ -1,184 +1,113 @@
+
 import React, { useState } from 'react'
+const Product = () => {
 
-export default class Product extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      description: "",
-      category: "",
-      price:"",
-      diprice: "",
-      Quantity: "",
-  };
-  this.handlesubmit = this.handlesubmit.bind(this); 
-}
+  const [inpval, setInpval] = useState({
+    name: "",
+    description: "",
+    category: "",
+    price: "",
+    diprice:"",
+    quantity:"",
 
-handlesubmit(e) {
-  e.preventDefault();
-  const { name,description, category, price, diprice, Quantity } = this.state;
-  console.log( name, description, category, price,  diprice, Quantity );
-  fetch("http://localhost:5000/product",{
-      method:"POST",
-      crossDomain:true,
-      headers:{
-          "content-type":"application/json",
-          Accept:"application/json",
-          "Accept-Control-Allow-Origin":"'",
-      },
-      body:JSON.stringify({
-        name,
-        description,
-        category,
-        price,
-        diprice,
-        Quantity,
-      }),
-  })
-  .then((res)  => res.json())
-  .then((data) => {
-      console.log(data, category);
-      alert(data.status);
   });
-}
-  
-  render() {
-    return (
-      <>
-      <div>
-        <div className="md:grid md:grid-cols-3 md:gap-6">
-         
-          <div className="mt-5 md:col-span-2 md:mt-0">
-            <form action="#" method="POST" onSubmit={this.handlesubmit}>
-              <div className="shadow sm:overflow-hidden sm:rounded-md">
-                <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
-                <div className="col-span-6 sm:col-span-3">
-                      <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                        Product name
-                      </label>
-                      <input
-                        type="text"
-                        name="first-name"
-                        id="first-name"
-                        autoComplete="given-name"
-                        onChange={ (e)=> this.setState({name: e.target.value})}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      />
-                    </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Product image</label>
-                    <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-                      <div className="space-y-1 text-center">
-                      <input
-                        type="file"
-                        name="first-name"
-                        id="first-name"
-                        autoComplete="given-name"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      />
-                     </div>
-                    </div>
-                  </div>
-                  <div className="col-span-6 sm:col-span-3">
-                      <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                        Product description
-                      </label>
-                      <input
-                        type="text"
-                        name="city"
-                        id="city"
-                        autoComplete="address-level2"
-                        onChange={ (e)=> this.setState({description: e.target.value})}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      />
-                    </div>
-                    <div className="col-span-6 sm:col-span-3">
-                      <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                        Category
-                      </label>
-                      <select
-                        id="country"
-                        name="country"
-                        autoComplete="country-name"
-                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                      >
-                        <option  onChange={ (e)=> this.setState({category: e.target.value})}>Sofa</option>
-                        <option  onChange={ (e)=> this.setState({category: e.target.value})}>Chair</option>
-                        <option  onChange={ (e)=> this.setState({category: e.target.value})}>Bed</option>
-                      </select>
-                    </div>
-                    <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-                      <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                        Price
-                      </label>
-                      <input
-                        type="text"
-                        name="city"
-                        id="city"
-                        autoComplete="address-level2"
-                        onChange={ (e)=> this.setState({price: e.target.value})}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      />
-                    </div>
-                    <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-                      <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                        Discount Price
-                      </label>
-                      <input
-                        type="text"
-                        name="dprice"
-                        id="dprice"
-                        autoComplete="address-level2"
-                        onChange={ (e)=> this.setState({diprice: e.target.value})}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      />
-                    </div>
-                    <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-                      <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                        Quantity
-                      </label>
-                      <input
-                        type="number"
-                        name="qua"
-                        id="qua"
-                        autoComplete="address-level2"
-                        onChange={ (e)=> this.setState({Quantity: e.target.value})}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      />
-                    </div>
-                </div>
-                <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                  <button
-                    type="submit"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    Save
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
+
+  const setVal = (e) => {
+    // console.log(e.target.value);
+    const { name, value } = e.target;
+
+    setInpval(() => {
+        return {
+            ...inpval,
+            [name]: value,
+          
+        }
+    })
+};
+
+  const addProduct = async (e) => {
+    e.preventDefault();
+
+    const { name, description, category, price, diprice, quantity } = inpval;
+
+        const data = await fetch("http://localhost:8009/setproduct", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              name, description, category, price, diprice, quantity
+            })
+        });
+
+        
+        const res = await data.json();
+         //console.log(res.status);
+
+        if (res.status === 201) {
+            // toast.success("Registration Successfully done !", {
+            //     position: "top-center"
+            // });
+             alert("Successfully AddProduct");
+            setInpval({ ...inpval, name: "", description: "", category: "", price: "",  diprice: "",  quantity: "" });
+        }
+    }
+    
+
+
+  return (
+    <div>
+      <form >
+      <div class="mb-6">
+        <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
+        <input type="text" onChange={setVal} value={inpval.name} name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
       </div>
-  
-      <div className="hidden sm:block" aria-hidden="true">
-        <div className="py-5">
-          <div className="border-t border-gray-200" />
-        </div>
+
+      <div class="mb-6">
+        <label   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Description </label>
+        <input type="text" onChange={setVal} value={inpval.description} name="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
       </div>
-    </>
+
+      {/* <div class="mb-6">
+        <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product category</label>
+        <select id="countries" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option onChange={setVal} value={inpval.category} > Bad </option>
+            <option onChange={setVal} value={inpval.category} >Chair</option>
+            <option onChange={setVal} value={inpval.category} >Table</option>
+            <option onChange={setVal} value={inpval.category} >Console</option>
+        </select>
+      </div> */}
+
+      <div class="mb-6">
+        <label   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product category </label>
+        <input type="text" onChange={setVal} value={inpval.category} name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+      </div>
+
+      <div class="mb-6">
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Price</label>
+        <input type="text" onChange={setVal} value={inpval.price} name="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+      </div>
+
+      <div class="mb-6">
+        <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product DiscountPrice</label>
+        <input type="text" onChange={setVal} value={inpval.diprice} name="diprice"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+      </div>
+
+      <div class="mb-6">
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Quantity</label>
+        <input type="text" onChange={setVal} value={inpval.quantity} name="quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+      </div>
+
+      <div class="mb-6">
+  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Image</label>
+  <input type="file"   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+</div>
+
       
-    );
-
-   
-  }
+      <button type="submit" onClick={addProduct} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+  </form>
+    </div>
+  )
 }
 
-
-
-
-
-
-
-
-
+export default Product

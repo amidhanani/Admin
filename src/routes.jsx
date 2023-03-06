@@ -6,10 +6,13 @@ import {
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Tables, Notifications } from "@/pages/dashboard";
-import { SignIn, SignUp } from "@/pages/auth";
+import { Home,  } from "@/pages/dashboard";
 import Dinkal from "./pages/dashboard/dinkal";
 import Product from "./pages/dashboard/products";
+import Notifications from "./pages/dashboard/notifications";
+import Productview from "./pages/dashboard/productview";
+import SignUp from "./pages/auth/sign-up";
+import SignIn from "./pages/auth/sign-in";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -27,14 +30,14 @@ export const routes = [
       },
       {
         icon: <TableCellsIcon {...icon} />,
-        name: "tables",
-        path: "/tables",
-        element: <Tables />,
+        name: "productview",
+        path: "/productview",
+        element: <Productview />,
       },
       {
         icon: <BellIcon {...icon} />,
         name: "order Detail",
-        path: "/notifactions",
+        path: "/notifications",
         element: <Notifications />,
       },
       {
